@@ -1,44 +1,39 @@
 # UI and interaction contract
 
-The UI must feel intentionally designed across time, not merely look good on the first screen. Industry/platform guidance and existing product patterns outrank AI taste.
+MazRGB is a focused Windows utility, not an RGB configuration laboratory. The common path must stay faster than vendor utilities.
 
-## Core rules
+## Product structure
 
-- KISS: if removing copy, decoration, a container, or a control does not reduce understanding, remove it.
-- Friendly means clear labels, sensible defaults, useful errors, and predictable behavior — not verbose explanation.
-- Use Mantine components and semantic theme tokens before custom UI or raw values.
-- Shared layouts own geometry. Feature screens provide content and product behavior, not bespoke page spacing.
-- Consistency across screens beats local visual optimization.
-- Do not patch alignment with arbitrary offsets; fix the responsible layout/component.
-- One canonical term and action label per product concept.
+- `Lighting` is the primary and currently only navigation destination.
+- Scenes are the first control surface: one action applies a coherent look to every connected compatible device.
+- Manual control is secondary and targets the current multi-selection.
+- Device cards communicate selection, readiness, vendor, zone count, current color, and brightness without opening another screen.
+- Blackout is a reversible primary action; after blackout the same action becomes Restore.
+- Window and tray commands use the same scene names and lighting-state semantics.
 
-## Canonical structure
+## Visual system
 
-Prefer reusable primitives such as `AppFrame`, `PageHeader`, `Section`, `Toolbar`, `FormActions`, `EmptyState`, `ErrorState`, and table patterns. Create a new pattern only when existing ones cannot express the requirement cleanly.
+- Default to the shared dark Mantine theme with violet as the product accent.
+- Use semantic Mantine tokens and shared primitives before custom CSS/raw values.
+- Color swatches are previews, never the only indication of device or action state.
+- Controls must retain WCAG 2.2 AA contrast and visible keyboard focus.
+- Desktop density should feel utility-like: compact enough for quick scanning without shrinking targets or labels.
 
-Before implementing a screen, inspect the closest analogous screen. New list pages should resemble established list pages; settings should use established settings structure; destructive flows should reuse the canonical confirmation pattern.
+## State contract
 
-## Visual tokens
+- Preview/sample hardware must be visibly identified and never presented as detected hardware.
+- Provider connection, discovery, reconnecting, empty, partial support, offline, permission/prerequisite, and command-error states become required when the real provider is connected.
+- Rescan is disabled until it performs a real provider action; do not ship decorative controls.
+- Selection-dependent actions are disabled when no compatible device is selected.
+- A partial device failure must identify affected devices while preserving successful device state.
 
-Typography, spacing, control sizes, radii, borders, colors, shadows, breakpoints, focus treatment, and motion belong to the theme or shared components. Semantic color communicates status; color is never the only status signal.
+## Responsive/platform behavior
 
-## Applicable states
-
-For each feature, explicitly determine which states apply: default, hover/focus/disabled, loading, empty, error, partial/stale data, offline/reconnecting, permission/read-only, success, destructive/reversible, long/missing content, and supported viewport/input modes. Do not implement impossible states merely to satisfy a checklist.
-
-Complex asynchronous or consequential workflows should define valid state transitions instead of accumulating contradictory booleans.
-
-## Accessibility and platform behavior
-
-WCAG 2.2 AA is the web baseline. Use semantic HTML, visible focus, keyboard operation, meaningful labels, sufficient contrast, non-color status cues, zoom/reflow support, reduced-motion/high-contrast preferences, and accessible dynamic status announcements. Use the component library's dialog/menu/popover focus behavior instead of reimplementing it.
-
-Normal browser behavior is part of UX: meaningful state should survive refresh/deep links when appropriate, back/forward should work, and unsaved work needs an explicit autosave/save/discard policy.
+- The supported product is Windows desktop; narrow layouts are stress-tested to prevent breakage, not a promise of a mobile product.
+- Closing the desktop window hides it to tray; Quit is explicit.
+- Do not use browser navigation metaphors when a direct desktop action is clearer.
+- Keyboard operation, screen-reader names, reduced motion, zoom/reflow, and non-color status cues remain required.
 
 ## Anti-drift
 
-- Canonical components and the UI showroom are the visual reference.
-- Use stress data: long strings, empty values, Unicode, large numbers, many rows, and realistic filenames.
-- Visual snapshots are reviewed evidence. Never regenerate them blindly after a failure.
-- Token/shared-component changes require checking representative consumers.
-- Preview the actual application code; never maintain a separate mock UI that can diverge.
-- Intentional system evolution happens centrally and moves affected screens together.
+The actual application and reviewed Playwright snapshots are the visual source of truth. Shared token changes require accessibility and representative visual checks; never update baselines merely to silence failures.

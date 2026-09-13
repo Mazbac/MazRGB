@@ -29,13 +29,16 @@ export function AppFrame({ children }: AppFrameProps) {
             size="sm"
             aria-label="Toggle navigation"
           />
-          <Text fw={600}>AI Project Starter</Text>
+          <Text fw={700}>MazRGB</Text>
+          <Text c="dimmed" size="xs">
+            Unified lighting
+          </Text>
         </Group>
       </AppShell.Header>
 
       <AppShell.Navbar p="sm">
         <Stack gap="xs">
-          <NavLink label="UI baseline" active />
+          <NavLink label="Lighting" active />
         </Stack>
       </AppShell.Navbar>
 

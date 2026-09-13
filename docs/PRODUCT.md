@@ -1,29 +1,45 @@
 # Product
 
-This file is the durable source of truth for what the product is. Replace template placeholders during project intake; do not use it as a work log.
+MazRGB is a Windows desktop application for controlling RGB lighting across brands from one place.
 
 ## Goal
 
-- Problem: TBD
-- Target user: TBD
-- Core successful outcome: TBD
-- Why this product should exist: TBD
+- Problem: PC RGB is fragmented across vendor utilities that do not share a control model, often run continuously, and are difficult to synchronize.
+- Target user: a Windows PC owner with RGB hardware from multiple brands who wants one dependable control surface.
+- Core successful outcome: open MazRGB (or use its tray menu), choose a look, and have every supported light follow it without opening vendor-specific apps.
+- Why this product should exist: cross-brand hardware support already exists in projects such as OpenRGB; MazRGB should turn that capability into a focused, polished everyday desktop experience.
 
 ## Product profile
 
-- Surface/distribution: TBD (web, desktop, mobile, extension, CLI, service)
-- Primary environment: TBD
-- Risk level: TBD (lightweight, standard, high-consequence)
-- Valuable/sensitive assets affected: TBD
+- Surface/distribution: installable desktop app with a normal window and system-tray presence.
+- Primary environment: Windows 11 desktop; keyboard and mouse first.
+- Risk level: standard. It controls local hardware and may require elevated/device-driver prerequisites, but it does not handle money, identity, or cloud data.
+- Valuable/sensitive assets affected: local lighting state and local app preferences only for the MVP.
 
 ## MVP
 
-Define the smallest end-to-end version that is genuinely useful. Each item must describe a user capability, not an implementation detail.
+- Discover RGB controllers through a local hardware adapter and show whether each device is controllable.
+- Apply a solid color and brightness to all compatible devices at once.
+- Select one or more devices and override the global look for that selection.
+- Apply a small set of built-in scenes that combine color and brightness, including a one-action blackout.
+- Rescan/reconnect and explain offline, unsupported, or permission/prerequisite states clearly.
+- Minimize/close to tray and expose the same core scenes, blackout, and app-open action there.
+
+## Control model
+
+- Scene first: everyday use is one click for the whole setup.
+- Selection second: device cards support multi-select for precise overrides without leaving the main screen.
+- Capability-aware controls: never pretend every controller supports the same native effects; show only operations that can be applied safely to the current selection.
+- Predictable fallback: blackout may be implemented as zero-output color when hardware has no native power state, while MazRGB remembers the previous scene for restore.
+- One mental model: window controls and tray controls operate on the same active scene/state.
 
 ## Later / non-goals
 
-Record worthwhile ideas that are explicitly outside the current MVP so they do not hijack development.
+- Direct reimplementation of every vendor USB/SMBus driver is not an MVP requirement.
+- Dynamic software effects, per-LED spatial mapping, audio/game integrations, ambient-screen capture, and advanced animations come after reliable static control.
+- Fan speed, pumps, LCD panels, macros, and non-lighting peripheral settings are out of scope.
+- Cloud accounts, remote control over the internet, telemetry, and multi-PC sync are not required for MVP.
 
 ## Success
 
-State how we know the first useful version works for its intended user. Raw ideas and visual references belong in `references/`; durable conclusions belong here or in the relevant domain document.
+The first useful version succeeds when a user with more than one supported RGB device can launch MazRGB, see the devices, apply a cross-device color/brightness scene, turn everything dark, restore a scene, and perform those common actions again from the tray without opening vendor utilities.

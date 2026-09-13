@@ -1,23 +1,32 @@
 # User lifecycle
 
-Select only the stages that apply to the product, but design those stages deliberately. A feature is not complete if it breaks the end-to-end journey around it.
+MazRGB should get from launch to useful lighting control with minimal ceremony.
 
-## Lifecycle map
+## Primary journey
 
-- Discover/acquire: how users reach the product and understand its purpose.
-- Install/open: platform-appropriate acquisition, prerequisites, failure/retry, and permissions.
-- First launch: reach useful product UI quickly; avoid ceremonial screens.
-- Required setup: ask only for information or connections needed to function.
-- Onboarding: teach contextually and minimally; optimize for the first successful task.
-- Normal/returning use: preserve appropriate preferences/state and make common work efficient.
-- Interruption/recovery: handle lost connectivity, expired sessions, restarts, denied permissions, retries, and partial work when relevant.
-- Update/migration: preserve data/config compatibility and provide recovery for consequential migrations.
-- Account/data management: make ownership, export, retention, cancellation, sign-out, and deletion semantics explicit.
-- Uninstall/leave: remove app-owned artifacts cleanly while preserving user-created data unless deletion is explicitly requested.
-- Reinstall/return: deliberately choose whether state is restored or reset.
+1. User installs and opens MazRGB on Windows.
+2. MazRGB checks the local lighting provider and begins device discovery automatically.
+3. The main screen shows detected controllable devices plus any clear unsupported/offline state.
+4. User applies a built-in scene to the whole setup, or selects devices for a manual color/brightness override.
+5. User can Blackout and later Restore without rebuilding the previous look.
+6. Closing the window keeps MazRGB available in the system tray; tray commands operate on the same active lighting state.
+7. Reopening the app returns to the current device/lighting state rather than onboarding again.
 
-## Product-specific journey
+## Setup and recovery
 
-Replace this section during intake with the actual shortest path from acquisition to the first successful outcome, plus consequential recovery/exit paths.
+- Do not show ceremonial onboarding; explain prerequisites only when the provider is missing, unreachable, or lacks permission.
+- Rescan/reconnect must be safe to repeat and must not discard the user's intended scene.
+- Device-list changes must stop using stale device identifiers before applying further commands.
+- Partial hardware support must identify which devices/actions are unavailable instead of failing the whole setup.
+- If a provider disconnects, show stale/offline state and recover automatically when possible.
 
-For each new feature ask whether it changes setup, onboarding, permissions, returning state, updates, export, account deletion, uninstall, or recovery. If none apply, do not add lifecycle ceremony.
+## Desktop lifecycle
+
+- One MazRGB instance owns the tray and lighting session.
+- Window close hides to tray; explicit Quit ends the application.
+- Startup-at-login is a later preference, not an MVP assumption.
+- Uninstall should remove app-owned files while leaving third-party provider configuration alone.
+
+## Not applicable for MVP
+
+Accounts, cloud data, sign-in/out, billing, collaborative state, and internet-dependent recovery are not part of the current product.

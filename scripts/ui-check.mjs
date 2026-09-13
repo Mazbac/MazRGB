@@ -18,16 +18,21 @@ function walk(directory) {
       continue
     }
     if (!extensions.has(extname(path))) continue
+
+    const file = relative('.', path).replaceAll('\\', '/')
+    const isDomainFile = file.startsWith('src/domain/')
     const lines = readFileSync(path, 'utf8').split(/\r?\n/)
+
     lines.forEach((line, index) => {
       for (const [label, pattern] of rules) {
+        // RGB values in the domain model are hardware payload data, not UI tokens.
+        if (label === 'raw hex color' && isDomainFile) continue
         if (pattern.test(line))
-          violations.push(`${relative('.', path)}:${index + 1} — ${label}`)
+          violations.push(`${file}:${index + 1} — ${label}`)
       }
     })
   }
 }
-
 walk(root)
 
 if (violations.length > 0) {

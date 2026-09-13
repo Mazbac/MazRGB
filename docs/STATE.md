@@ -4,27 +4,28 @@ Keep this file short. It is the handoff for the next AI session, not project his
 
 ## Current
 
-- Mode: starter template
-- Epic: framework setup
-- Feature: reusable AI-native development baseline
-- Blocking issue: none
+- Mode: product development
+- Epic: hardware integration
+- Feature: first useful cross-brand lighting workflow
+- Blocking issue: OpenRGB hardware adapter is not implemented yet
 
 ## Working
 
-- Vite + React + TypeScript foundation
-- Mantine component system
-- Repository-memory documentation structure
-- Verification and browser-test structure
-- UI baseline/showroom structure
-- Copy-ready new-project, continuation, and quick-change prompts in `docs/PROMPTS.md`
+- Windows Electron shell with close-to-tray and single-instance behavior
+- React/Mantine lighting dashboard with scene-first controls
+- Aurora, Focus, Ember, Blackout, and Restore actions
+- Multi-select device overrides for color and brightness
+- Tray commands use the same scene/action model as the main window
+- Demo devices are clearly labeled preview data
+- Unit, accessibility, responsive visual, type, lint, and build verification structure
 
 ## Next
 
-1. Create a real product from this template.
-2. Use `docs/PROMPTS.md` to start or resume ChatGPT work without restating the framework.
-3. Normalize raw user input into `PRODUCT.md`, `ROADMAP.md`, `JOURNEYS.md`, and capability/risk selections.
-4. Build the smallest complete vertical slice and keep the live preview running.
+1. Implement the provider-neutral lighting adapter contract and OpenRGB SDK client.
+2. Replace preview devices with detected hardware and real connection/error states.
+3. Wire Rescan and apply/blackout/restore actions to the provider.
+4. Add Windows packaging/install/update work only after real hardware control is reliable.
 
 ## Known issues
 
-None. Do not record completed historical detail here; remove stale entries as the project moves forward.
+- Hardware control is not yet connected; current device state is local sample data.

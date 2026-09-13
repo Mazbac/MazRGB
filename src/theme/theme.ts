@@ -9,10 +9,10 @@ export const layoutTokens = {
 } as const
 
 export const theme = createTheme({
-  primaryColor: 'blue',
-  primaryShade: { light: 8, dark: 6 },
+  primaryColor: 'violet',
+  primaryShade: { light: 7, dark: 7 },
   autoContrast: true,
-  defaultRadius: 'sm',
+  defaultRadius: 'md',
   fontFamily,
   headings: {
     fontFamily,

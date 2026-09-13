@@ -22,6 +22,18 @@ Accessibility follows current WCAG guidance; platform-specific behavior follows 
 
 Intentional design-system changes update shared primitives/tokens and reviewed baselines. Local exceptions are not an acceptable substitute for coherent evolution.
 
+## 2026-09-13 — D006: Windows desktop via Electron
+
+MazRGB targets Windows first and uses Electron around the existing React/Mantine renderer. Privileged capabilities stay outside the renderer behind a narrow preload bridge.
+
+## 2026-09-13 — D007: OpenRGB is the first hardware provider, not the product architecture
+
+Use the OpenRGB SDK as the first path to broad cross-brand RGB support, but keep all provider-specific protocol and device details behind a MazRGB lighting-provider adapter. This preserves the option to add or replace providers without rewriting product workflows.
+
+## 2026-09-13 — D008: Scene-first control model
+
+Everyday control is whole-setup scenes plus Blackout/Restore; multi-select device overrides provide precision when needed. Window and tray actions share the same lighting-state semantics. Advanced dynamic effects remain later work until reliable static cross-brand control exists.
+
 ## Adding decisions
 
 Use: date, stable ID, decision, and short reason. Add only when the choice is durable enough to affect future work.
